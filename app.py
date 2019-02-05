@@ -24,6 +24,10 @@ def navigateService():
     # Initialise RobotProcess object using input parameters
     robot = RP.RobotProcess(data['roomSize'], data['coords'], data['patches'], data['instructions'])
 
+    # Validate input
+    # if not robot.validate():
+    #     return make_response(jsonify({'error': 'Not found'}), 404)
+
     # Carry out navigation process
     robot.navigate()
 
