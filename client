@@ -1,10 +1,15 @@
-import RobotProcess
+import requests
 
-robot = RobotProcess.RobotProcess([5, 5], [1, 2], [[1, 0], [2, 2], [2, 3]], "NNESEESWNWW")
+payload = {
+    'roomSize': [5, 5],
+    'coords': [1, 2],
+    'patches': [
+        [1, 0],
+        [2, 2],
+        [2, 3]
+    ],
+    'instructions': 'NNESEESWNWW'
+}
 
-robot.navigate()
-
-print(robot.getPosition())
-print("Number of patches cleaned: " + str(robot.getNoOfPatchesCleaned()))
-# print("Patches cleaned: " + str(robot.getPatchesCleaned()))
-
+r = requests.post('http://127.0.0.1:5000/navigate', json=payload)
+print(r.json())
