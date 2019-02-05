@@ -1,0 +1,10 @@
+import RobotProcess
+
+robot = RobotProcess.RobotProcess([5, 5], [1, 2], [[1, 0], [2, 2], [2, 3]], "NNESEESWNWW")
+
+robot.navigate()
+
+print(robot.getPosition())
+print("Number of patches cleaned: " + str(robot.getNoOfPatchesCleaned()))
+# print("Patches cleaned: " + str(robot.getPatchesCleaned()))
+
