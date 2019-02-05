@@ -1,8 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import RobotProcess as RP
 
 # create the Flask app
 app = Flask(__name__)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.route('/')
+def index():
+    return "Robot ready!"
 
 
 # Main navigation service route
@@ -17,7 +27,7 @@ def navigateService():
     # Carry out navigation process
     robot.navigate()
 
-    # Populate output payload and rturn
+    # Populate output payload and return
     output = {'coords': robot.getPosition(),
               'patches': robot.getNoOfPatchesCleaned()}
 
@@ -25,4 +35,4 @@ def navigateService():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)  # run app in debug mode on port 5000
+    app.run(debug=True)
