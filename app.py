@@ -1,8 +1,12 @@
 from flask import Flask, request, jsonify, make_response
+import DatabaseManager as DBManager
 import RobotProcess as RP
 
-# create the Flask app
+# Create the Flask app
 app = Flask(__name__)
+
+# Initialise the database
+DBManager.initDB()
 
 
 @app.errorhandler(404)
@@ -30,12 +34,16 @@ def navigateService():
     if not validation[0]:
         return make_response(jsonify({'error': validation[1]}), 404)
 
+    # Add input to database
+
     # Carry out navigation process
     robot.navigate()
 
     # Populate output payload and return
     output = {'coords': robot.getPosition(),
               'patches': robot.getNoOfPatchesCleaned()}
+
+    # Add output to database
 
     return jsonify(output)
 
