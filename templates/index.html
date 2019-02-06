@@ -1,5 +1,92 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Robot Hoover Database</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered has-text-info is-size-1">
+                Robot Hoover Database
+            </h1>
+        </div>
+    </section>
+
+    <div class="columns is-desktop is-centered">
+        <div class="column is-one-third">
+            <h1 class="title has-text-centered">Input</h1>
+            <table class="table is-bordered is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>process_id</th>
+                        <th>room_size</th>
+                        <th>coords</th>
+                        <th>instructions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in input %}
+                    <tr>
+                        <td>{{ i[0] }}</td>
+                        <td>{{ i[1] }}</td>
+                        <td>{{ i[2] }}</td>
+                        <td>{{ i[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="column">
+            <h1 class="title has-text-centered">Patch</h1>
+
+            <table class="table is-bordered is-hoverable is-fullwidth">
+                <tr>
+                    <th>patch_id</th>
+                    <th>process_id</th>
+                    <th>patch_coords</th>
+                </tr>
+                {% for j in patch %}
+                <tr>
+                    <td>{{ j[0] }}</td>
+                    <td>{{ j[1] }}</td>
+                    <td>{{ j[2] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="column">
+            <h1 class="title has-text-centered">Output</h1>
+
+            <table class="table is-bordered is-hoverable is-fullwidth">
+                <tr>
+                    <th>process_id</th>
+                    <th>coords</th>
+                    <th>patches_cleaned</th>
+                </tr>
+                {% for k in output %}
+                <tr>
+                    <td>{{ k[0] }}</td>
+                    <td>{{ k[1] }}</td>
+                    <td>{{ k[2] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+<!--
+<!DOCTYPE html>
+<html>
 <style>
 table, th, td {
   border: 1px solid black;
@@ -68,3 +155,4 @@ th, td {
 </head>
 
 </html>
+-->

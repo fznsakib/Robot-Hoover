@@ -84,10 +84,3 @@ def receiveTables():
 
     return input, patch, output
 
-def retrieveUsers():
-	con = sql.connect("database.db")
-	cur = con.cursor()
-	cur.execute("SELECT username, password FROM users")
-	users = cur.fetchall()
-	con.close()
-	return users
