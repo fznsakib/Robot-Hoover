@@ -5,8 +5,6 @@ def initDB():
     # Create the sqlite database
     conn = sql.connect('database.db')
 
-    c = conn.cursor()
-
     # Reset and create input, patches and output tables
     conn.execute('DROP TABLE IF EXISTS input')
     conn.execute('DROP TABLE IF EXISTS output')

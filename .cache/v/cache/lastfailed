@@ -1,0 +1,4 @@
+{
+  "test.py::testClientExists": true,
+  "test.py::testGivenYotiInput": true
+}
