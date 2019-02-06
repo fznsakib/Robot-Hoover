@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+}
+</style>
+<head>
+    <h2>Robot Hoover Database</h2>
+    <meta charset="utf-8">
+    <table>
+        <caption>Input</caption>
+        <thead>
+        <tr>
+            <th>process_id</th>
+            <th>room_size</th>
+            <th>coords</th>
+            <th>instructions</th>
+        </tr>
+        {% for i in input %}
+        <tr>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+            <td>{{ i[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <table>
+        <caption>Patch</caption>
+        <thead>
+        <tr>
+            <th>patch_id</th>
+            <th>process_id</th>
+            <th>patch_coords</th>
+        </tr>
+        {% for j in patch %}
+        <tr>
+            <td>{{ j[0] }}</td>
+            <td>{{ j[1] }}</td>
+            <td>{{ j[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <table>
+        <caption>Output</caption>
+        <thead>
+        <tr>
+            <th>process_id</th>
+            <th>coords</th>
+            <th>patches_cleaned</th>
+        </tr>
+        {% for k in output %}
+        <tr>
+            <td>{{ k[0] }}</td>
+            <td>{{ k[1] }}</td>
+            <td>{{ k[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</head>
+
+</html>

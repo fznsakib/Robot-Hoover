@@ -67,10 +67,27 @@ def insertOutput(coords, patchesCleaned):
     con.close()
 
 
-def receive():
+def receiveTables():
     con = sql.connect("database.db")
     cur = con.cursor()
-    # cur.execute("SELECT username, password FROM users")
-    users = cur.fetchall()
+
+    # Get rows from every table
+    cur.execute("SELECT * FROM input")
+    input = cur.fetchall()
+
+    cur.execute("SELECT * FROM patch")
+    patch = cur.fetchall()
+
+    cur.execute("SELECT * FROM output")
+    output = cur.fetchall()
     con.close()
-    return users
+
+    return input, patch, output
+
+def retrieveUsers():
+	con = sql.connect("database.db")
+	cur = con.cursor()
+	cur.execute("SELECT username, password FROM users")
+	users = cur.fetchall()
+	con.close()
+	return users

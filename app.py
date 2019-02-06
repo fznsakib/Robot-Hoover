@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, render_template
 import DatabaseManager as DBManager
 import RobotProcess as RP
 
@@ -16,7 +16,8 @@ def not_found(error):
 
 @app.route('/')
 def index():
-    return "Robot ready!"
+    input, patch, output = DBManager.receiveTables()
+    return render_template('index.html', input=input, patch=patch, output=output)
 
 
 # Main navigation service route
