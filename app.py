@@ -35,6 +35,7 @@ def navigateService():
         return make_response(jsonify({'error': validation[1]}), 404)
 
     # Add input to database
+    DBManager.insertInput(robot.roomSize, robot.coords, robot.patches, robot.instructions)
 
     # Carry out navigation process
     robot.navigate()
@@ -44,7 +45,9 @@ def navigateService():
               'patches': robot.getNoOfPatchesCleaned()}
 
     # Add output to database
+    DBManager.insertOutput(output['coords'], output['patches'])
 
+    # Return output as json to service call
     return jsonify(output)
 
 

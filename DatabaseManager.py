@@ -10,7 +10,7 @@ def initDB():
     # Reset and create input, patches and output tables
     conn.execute('DROP TABLE IF EXISTS input')
     conn.execute('DROP TABLE IF EXISTS output')
-    conn.execute('DROP TABLE IF EXISTS patches')
+    conn.execute('DROP TABLE IF EXISTS patch')
 
     conn.execute('CREATE TABLE input('
                  'process_id INTEGER PRIMARY KEY AUTOINCREMENT,'
@@ -23,9 +23,10 @@ def initDB():
                  'coords VARCHAR,'
                  'patches_cleaned VARCHAR)'
                  )
-    conn.execute('CREATE TABLE patches('
+    conn.execute('CREATE TABLE patch('
                  'patch_id INTEGER PRIMARY KEY AUTOINCREMENT,'
                  'process_id INTEGER,'
+                 'patch_coords VARCHAR,'
                  'CONSTRAINT fk_patches'
                  '  FOREIGN KEY (process_id)'
                  '  REFERENCES input(process_id))'
@@ -34,18 +35,34 @@ def initDB():
     conn.close()
 
 
-def insertInput(username, password):
+def insertInput(roomSize, coords, patches, instructions):
     con = sql.connect("database.db")
     cur = con.cursor()
-    # cur.execute("INSERT INTO users (username,password) VALUES (?,?)", (username, password))
+
+    # Insert into input table
+    cur.execute('INSERT INTO input (room_size, coords, instructions) VALUES (?,?,?)',
+                (str(roomSize).strip('[]'), str(coords).strip('[]'), str(instructions)))
+
+    # Get current process id
+    cur.execute('SELECT process_id FROM input ORDER BY process_id DESC LIMIT 1')
+    processid = cur.fetchone()[0]
+
+    # Insert patches into patch table
+    for patch in patches:
+        patch = str(patch).strip('[]')
+        cur.execute('INSERT INTO patch (process_id, patch_coords) VALUES (?, ?)', (processid, patch))
+
     con.commit()
     con.close()
 
 
-def insertInput(username, password):
+def insertOutput(coords, patchesCleaned):
     con = sql.connect("database.db")
     cur = con.cursor()
-    # cur.execute("INSERT INTO users (username,password) VALUES (?,?)", (username, password))
+
+    # Insert into output table
+    cur.execute("INSERT INTO output (coords, patches_cleaned) VALUES (?,?)", (str(coords).strip('[]'), patchesCleaned))
+
     con.commit()
     con.close()
 
