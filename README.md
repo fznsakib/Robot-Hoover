@@ -3,7 +3,7 @@ A web service that emulates a robot processing grid based instructions.
 
 ### Running the server
 
-Enter the directory and then to initialise the local server run:
+Enter the directory and then initialise the local server by running:
 
 ```
 python app.py
