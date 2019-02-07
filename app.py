@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response, render_template
-import DatabaseManager as DBManager
-import RobotProcess as RP
+
+import scripts.DatabaseManager as DBManager
+import scripts.RobotProcess as RP
 
 # Create the Flask app
 app = Flask(__name__)

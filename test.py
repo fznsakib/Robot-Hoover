@@ -5,6 +5,17 @@ import os
 
 from app import app
 
+test_payload = {
+                'roomSize': [5, 5],
+                'coords': [1, 2],
+                'patches': [
+                    [1, 0],
+                    [2, 2],
+                    [2, 3]
+                ],
+                'instructions': 'NNESEESWNWW'
+               }
+
 
 @pytest.fixture
 def client():
@@ -18,26 +29,53 @@ def test_main_page(client):
 
 
 def test_yoti_input(client):
-    payload = {
-        'roomSize': [5, 5],
-        'coords': [1, 2],
-        'patches': [
-            [1, 0],
-            [2, 2],
-            [2, 3]
-        ],
-        'instructions': 'NNESEESWNWW'
-    }
-
-    payload = json.dumps(payload)
+    payload = json.dumps(test_payload)
 
     response = client.post('/navigate',
                            data=payload,
                            content_type='application/json')
 
     data = json.loads(response.data)
-    print(data)
     assert data['coords'] == [1, 3] and data['patches'] == 1
+
+
+def test_database_insert_input(client):
+    response = client.post('/navigate', data=test_payload, content_type='application/json')
+
+    con = sql.connect('database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM input")
+
+    input = cur.fetchone()
+    con.close()
+
+    assert input[1] == '5, 5' and input[2] == '1, 2' and input[3] == 'NNESEESWNWW'
+
+
+def test_database_insert_patch(client):
+    response = client.post('/navigate', data=test_payload, content_type='application/json')
+
+    con = sql.connect('database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM patch")
+
+    patch = cur.fetchone()
+    con.close()
+
+    assert patch[1] == 1 and patch[2] == '1, 0'
+
+
+def test_database_insert_output(client):
+    response = client.post('/navigate', data=test_payload, content_type='application/json')
+
+    con = sql.connect('database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM output")
+
+    output = cur.fetchone()
+    con.close()
+
+    assert output[1] == '1, 3' and output[2] == 1
 
 
 def test_logic_normal(client):
@@ -81,7 +119,6 @@ def test_logic_double_patch_clean(client):
 
     data = json.loads(response.data)
     assert data['coords'] == [4, 3] and data['patches'] == 1
-
 
 
 def test_logic_wall(client):
@@ -192,23 +229,3 @@ def test_input_validation_4(client):
 
 
 
-def test_database_insert(client):
-    payload = {
-        'roomSize': [5, 5],
-        'coords': [1, 2],
-        'patches': [
-            [1, 0],
-            [2, 2],
-            [2, 3]
-        ],
-        'instructions': 'NNESEESWNWW'
-    }
-
-    response = client.post('/navigate', data=payload, content_type='application/json')
-
-    con = sql.connect('database.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM output")
-
-    output = cur.fetchall()
-    con.close()

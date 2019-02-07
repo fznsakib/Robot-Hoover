@@ -19,7 +19,7 @@ def initDB():
     conn.execute('CREATE TABLE output('
                  'process_id INTEGER PRIMARY KEY AUTOINCREMENT,'
                  'coords VARCHAR,'
-                 'patches_cleaned VARCHAR)'
+                 'patches_cleaned INTEGER)'
                  )
     conn.execute('CREATE TABLE patch('
                  'patch_id INTEGER PRIMARY KEY AUTOINCREMENT,'

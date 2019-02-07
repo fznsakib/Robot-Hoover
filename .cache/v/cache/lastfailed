@@ -1,4 +1,5 @@
 {
   "test.py::testClientExists": true,
-  "test.py::testGivenYotiInput": true
+  "test.py::testGivenYotiInput": true,
+  "test.py::test_database_insert": true
 }
