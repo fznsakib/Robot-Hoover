@@ -31,11 +31,21 @@ with input as a json in the form:
 }
 ```
 
-An example request can also be made using the client file:
+An example request using the input above can also be made running the client file:
 
 ```
 python client.py
 ```
+
+The output will be return as a json in the form:
+
+```javascript
+{
+  "coords" : [1, 3],
+  "patches" : 1
+}
+```
+where ```coords``` are the final coordinates of the hoover and ```patches``` is the number of cleaned patches.
 
 ### Database
 
