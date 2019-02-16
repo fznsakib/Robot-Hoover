@@ -1,5 +1,5 @@
 # Robot-Hoover
-A web service that emulates a robot processing grid based instructions.
+A web service that emulates a robot processing grid based instructions. Made using Python with Flask as web framework and sqlite3 for the database.
 
 ### Running the server
 
